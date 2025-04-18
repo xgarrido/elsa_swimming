@@ -1,5 +1,6 @@
 import numpy as np
 import pandas as pd
+import plotly.express as px
 import streamlit as st
 
 st.set_page_config(page_title="natation", page_icon="🏊")  # , layout="wide")
@@ -18,8 +19,6 @@ st.dataframe(
     use_container_width=True,
     hide_index=True,
 )
-
-import plotly.express as px
 
 # Calculate total time in seconds
 time = pd.to_datetime(
