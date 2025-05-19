@@ -11,6 +11,7 @@ df = pd.read_excel(f"https://docs.google.com/spreadsheets/d/{sheet_id}/export")
 config = {
     "Date": st.column_config.DatetimeColumn(format="DD/MM/YYYY"),
     "Piscine": st.column_config.ListColumn(),
+    "Résultats": st.column_config.LinkColumn(display_text="link"),
 }
 st.dataframe(
     df.drop(columns=["Lieu"]).fillna(value={"Notes": ""}),
