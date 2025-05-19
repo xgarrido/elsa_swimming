@@ -14,7 +14,7 @@ config = {
     "Résultats": st.column_config.LinkColumn(display_text="link"),
 }
 st.dataframe(
-    df.drop(columns=["Lieu"]).fillna(value={"Notes": ""}),
+    df.drop(columns=["Lieu"]).fillna(value=""),
     column_config=config,
     use_container_width=True,
     hide_index=True,
