@@ -16,7 +16,7 @@ config = {
 st.dataframe(
     df.drop(columns=["Lieu"]).fillna(value=""),
     column_config=config,
-    use_container_width=True,
+    width="stretch",
     hide_index=True,
 )
 
