@@ -25,11 +25,13 @@ time = pd.to_datetime(
     df["Temps"].str.extract(r"(\d+):(\d+)\.(\d+)").astype(float).dot([60, 1, 0.01]), unit="s"
 )
 
-fig = px.line(df, x="Date", y=time, color="Nage", markers=True, template="seaborn")
-st.plotly_chart(
-    fig.update_layout(
-        legend=dict(orientation="h", yanchor="bottom", y=1.0, xanchor="left", x=0.0),
-        yaxis=dict(tickformat="%M:%S.%f", title="Temps"),
-        xaxis=dict(title=None),
-    )
+kwargs = dict(
+    legend=dict(orientation="h", yanchor="bottom", y=1.0, xanchor="left", x=0.0),
+    yaxis=dict(tickformat="%M:%S.%f", title="Temps"),
+    xaxis=dict(title=None),
 )
+
+for nage in [50, 100]:
+    mask = df.Nage.str.startswith(f"{nage}m")
+    fig = px.line(df[mask], x="Date", y=time[mask], color="Nage", markers=True, template="seaborn")
+    st.plotly_chart(fig.update_layout(**kwargs))
