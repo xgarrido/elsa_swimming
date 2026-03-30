@@ -14,7 +14,9 @@ config = {
     "Résultats": st.column_config.LinkColumn(display_text="link"),
 }
 st.dataframe(
-    df.drop(columns=["Lieu"]).fillna(value=""),
+    df.drop(columns=["Lieu"])
+    .fillna(value="")
+    .sort_values(by=["Date", "Temps"], ascending=[False, True]),
     column_config=config,
     width="stretch",
     hide_index=True,
