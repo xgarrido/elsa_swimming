@@ -1,3 +1,5 @@
+from datetime import timedelta
+
 import pandas as pd
 import plotly.express as px
 import streamlit as st
@@ -27,13 +29,17 @@ time = pd.to_datetime(
     df["Temps"].str.extract(r"(\d+):(\d+)\.(\d+)").astype(float).dot([60, 1, 0.01]), unit="s"
 )
 
+# Calculte min/max datetime
+min_date, max_date = df.Date.agg(["min", "max"])
+delta_days = timedelta(days=10)
+
 kwargs = dict(
     legend=dict(orientation="h", yanchor="bottom", y=1.0, xanchor="left", x=0.0),
     yaxis=dict(tickformat="%M:%S.%f", title="Temps"),
-    xaxis=dict(title=None),
+    xaxis=dict(title=None, range=(min_date - delta_days, max_date + delta_days)),
 )
 
-for nage in [50, 100]:
+for nage in [50, 100, 200]:
     mask = df.Nage.str.startswith(f"{nage}m")
     fig = px.line(df[mask], x="Date", y=time[mask], color="Nage", markers=True, template="seaborn")
     st.plotly_chart(fig.update_layout(**kwargs))
