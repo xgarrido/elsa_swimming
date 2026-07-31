@@ -33,11 +33,11 @@ time = pd.to_datetime(
 min_date, max_date = df.Date.agg(["min", "max"])
 delta_days = timedelta(days=10)
 
-kwargs = dict(
-    legend=dict(orientation="h", yanchor="bottom", y=1.0, xanchor="left", x=0.0),
-    yaxis=dict(tickformat="%M:%S.%f", title="Temps"),
-    xaxis=dict(title=None, range=(min_date - delta_days, max_date + delta_days)),
-)
+kwargs = {
+    "legend": {"orientation": "h", "yanchor": "bottom", "y": 1.0, "xanchor": "left", "x": 0.0},
+    "yaxis": {"tickformat": "%M:%S.%f", "title": "Temps"},
+    "xaxis": {"title": None, "range": (min_date - delta_days, max_date + delta_days)},
+}
 
 for nage in [50, 100, 200]:
     mask = df.Nage.str.startswith(f"{nage}m")
